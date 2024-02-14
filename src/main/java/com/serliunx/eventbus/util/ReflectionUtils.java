@@ -2,6 +2,8 @@ package com.serliunx.eventbus.util;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -11,9 +13,9 @@ import java.util.stream.Collectors;
  * @author SerLiunx
  * @since 1.0
  */
-public final class RefectionUtils {
+public final class ReflectionUtils {
 
-    private RefectionUtils(){throw new UnsupportedOperationException();}
+    private ReflectionUtils(){throw new UnsupportedOperationException();}
 
     /**
      * 获取标注了指定注解的方法(只获取public方法)
@@ -41,5 +43,23 @@ public final class RefectionUtils {
                 .filter(m -> m.getAnnotation(annotationClass) != null)
                 .peek(m -> m.setAccessible(true))
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * 获取方法中指定注解的参数
+     * @param method 方法对象
+     * @param annotationClass 注解类
+     * @return 参数
+     */
+    public static List<Parameter> getParametersByAnnotation(Method method,
+                                                           Class<? extends Annotation> annotationClass){
+        final Parameter[] parameters = method.getParameters();
+        final List<Parameter> parameterList = new ArrayList<>(16);
+        for (Parameter p : parameters) {
+            if(p.getAnnotation(annotationClass) != null){
+                parameterList.add(p);
+            }
+        }
+        return parameterList;
     }
 }

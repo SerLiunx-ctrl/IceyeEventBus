@@ -6,6 +6,7 @@ import java.lang.reflect.Method;
 
 /**
  * 默认同步事件总线实现
+ * <li> 使用默认的同步事件调度器
  * @author SerLiunx
  * @since 1.0
  */

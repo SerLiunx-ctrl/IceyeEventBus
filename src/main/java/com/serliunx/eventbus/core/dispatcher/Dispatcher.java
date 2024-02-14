@@ -1,7 +1,7 @@
 package com.serliunx.eventbus.core.dispatcher;
 
-import com.serliunx.eventbus.core.MethodHolder;
 import com.serliunx.eventbus.core.EventRegistry;
+import com.serliunx.eventbus.core.MethodHolder;
 import com.serliunx.eventbus.core.event.Event;
 
 import java.util.List;

@@ -7,7 +7,7 @@ import com.serliunx.eventbus.core.dispatcher.Dispatcher;
 import com.serliunx.eventbus.core.dispatcher.SyncDispatcher;
 import com.serliunx.eventbus.core.event.Event;
 import com.serliunx.eventbus.exception.TooManyParametersException;
-import com.serliunx.eventbus.util.RefectionUtils;
+import com.serliunx.eventbus.util.ReflectionUtils;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
@@ -26,7 +26,7 @@ public abstract class AbstractEventBus implements EventBus{
     @Override
     public void registerListener(Listener listener) {
         Class<? extends Listener> clazz = listener.getClass();
-        List<Method> methods = RefectionUtils.getMethodsWithAnnotation(clazz, Subscribe.class);
+        List<Method> methods = ReflectionUtils.getMethodsWithAnnotation(clazz, Subscribe.class);
 
         methods.stream()
                 .filter(m -> m.getParameters().length > 0)
@@ -38,9 +38,9 @@ public abstract class AbstractEventBus implements EventBus{
 
                         throw new TooManyParametersException(message);
                     }
+                    Subscribe annotation = m.getAnnotation(Subscribe.class);
                     Parameter parameter = parameters[0];
                     Class<?> eventClass = parameter.getType();
-                    Subscribe annotation = m.getAnnotation(Subscribe.class);
                     if(filter(m, annotation)){
                         eventRegistry.add(eventClass, m, listener);
                     }

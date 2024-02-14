@@ -2,6 +2,7 @@ package com.serliunx.eventbus.core.dispatcher;
 
 import com.serliunx.eventbus.core.MethodHolder;
 import com.serliunx.eventbus.core.EventRegistry;
+import com.serliunx.eventbus.core.event.Event;
 
 import java.util.List;
 
@@ -25,5 +26,13 @@ public class SyncDispatcher implements Dispatcher{
                 throw new RuntimeException(e);
             }
         });
+    }
+
+    @Override
+    public void dispatchEvent(EventRegistry eventRegistry, Event event) {
+        if(!validateContext(eventRegistry, event)){
+            return;
+        }
+        System.out.println("sync dispatch event");
     }
 }

@@ -8,7 +8,7 @@ import java.util.concurrent.ThreadPoolExecutor;
  * @author SerLiunx
  * @since 1.0
  */
-public class CallerDirectRunsPolicy implements RejectedExecutionHandler {
+public class CallerDirectRunPolicy implements RejectedExecutionHandler {
 
     @Override
     public void rejectedExecution(Runnable r, ThreadPoolExecutor executor) {

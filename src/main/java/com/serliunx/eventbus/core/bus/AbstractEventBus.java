@@ -5,6 +5,7 @@ import com.serliunx.eventbus.core.EventRegistry;
 import com.serliunx.eventbus.core.Listener;
 import com.serliunx.eventbus.core.dispatcher.Dispatcher;
 import com.serliunx.eventbus.core.dispatcher.SyncDispatcher;
+import com.serliunx.eventbus.core.event.Event;
 import com.serliunx.eventbus.exception.TooManyParametersException;
 import com.serliunx.eventbus.util.RefectionUtils;
 
@@ -13,6 +14,7 @@ import java.lang.reflect.Parameter;
 import java.util.List;
 
 /**
+ * 抽象事件总线实现
  * @author SerLiunx
  * @since 1.0
  */
@@ -52,6 +54,11 @@ public abstract class AbstractEventBus implements EventBus{
 
     @Override
     public void publish(Object event) {
+        if(event instanceof Event){
+            Event e = (Event) event;
+            dispatcher.dispatchEvent(eventRegistry, e);
+            return;
+        }
         dispatcher.dispatch(eventRegistry, event);
     }
 }

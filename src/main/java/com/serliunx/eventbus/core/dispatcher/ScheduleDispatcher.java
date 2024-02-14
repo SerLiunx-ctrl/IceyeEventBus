@@ -1,6 +1,7 @@
 package com.serliunx.eventbus.core.dispatcher;
 
 import com.serliunx.eventbus.core.EventRegistry;
+import com.serliunx.eventbus.core.event.Event;
 
 /**
  * 定时事件调度器
@@ -19,7 +20,7 @@ public class ScheduleDispatcher implements Dispatcher{
     }
 
     @Override
-    public boolean validateContext(EventRegistry eventRegistry, Object event) {
-        return Dispatcher.super.validateContext(eventRegistry, event);
+    public void dispatchEvent(EventRegistry eventRegistry, Event event) {
+
     }
 }

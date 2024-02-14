@@ -2,7 +2,8 @@ package com.serliunx.eventbus.core.dispatcher;
 
 import com.serliunx.eventbus.core.MethodHolder;
 import com.serliunx.eventbus.core.EventRegistry;
-import com.serliunx.eventbus.core.pool.CallerDirectRunsPolicy;
+import com.serliunx.eventbus.core.event.Event;
+import com.serliunx.eventbus.core.pool.CallerDirectRunPolicy;
 import com.serliunx.eventbus.core.pool.EventDispatcherThreadFactory;
 import lombok.Getter;
 import java.util.List;
@@ -26,7 +27,7 @@ public class AsyncDispatcher implements Dispatcher{
 
     public AsyncDispatcher() {
         this(new ThreadPoolExecutor(16, 32, 60, TimeUnit.MINUTES,
-                new ArrayBlockingQueue<>(16), new EventDispatcherThreadFactory(), new CallerDirectRunsPolicy()));
+                new ArrayBlockingQueue<>(16), new EventDispatcherThreadFactory(), new CallerDirectRunPolicy()));
     }
 
     @Override
@@ -44,5 +45,10 @@ public class AsyncDispatcher implements Dispatcher{
                 }
             });
         });
+    }
+
+    @Override
+    public void dispatchEvent(EventRegistry eventRegistry, Event event) {
+
     }
 }

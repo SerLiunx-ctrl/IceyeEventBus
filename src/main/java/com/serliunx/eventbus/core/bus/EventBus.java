@@ -16,6 +16,12 @@ public interface EventBus {
     void registerListener(Listener listener);
 
     /**
+     * 批量注册监听器
+     * @param listeners 监听器
+     */
+    void registerListeners(Listener...listeners);
+
+    /**
      * 发布事件
      * @param event 事件
      */

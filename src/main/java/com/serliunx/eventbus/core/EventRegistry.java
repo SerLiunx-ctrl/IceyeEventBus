@@ -1,7 +1,5 @@
 package com.serliunx.eventbus.core;
 
-import lombok.Getter;
-
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +11,6 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author SerLiunx
  * @since 1.0
  */
-@Getter
 public class EventRegistry {
 
     private final Map<Class<?>, List<MethodHolder>> subscribers = new ConcurrentHashMap<>();
@@ -29,5 +26,9 @@ public class EventRegistry {
             return;
         }
         methods.add(methodHolder);
+    }
+
+    public Map<Class<?>, List<MethodHolder>> getSubscribers() {
+        return subscribers;
     }
 }

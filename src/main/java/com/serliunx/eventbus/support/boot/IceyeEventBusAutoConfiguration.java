@@ -1,4 +1,4 @@
-package com.serliunx.eventbus.support.spring;
+package com.serliunx.eventbus.support.boot;
 
 import com.serliunx.eventbus.core.bus.EventBus;
 import com.serliunx.eventbus.core.bus.SyncEventBus;

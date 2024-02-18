@@ -5,7 +5,6 @@ import com.serliunx.eventbus.core.MethodHolder;
 import com.serliunx.eventbus.core.event.Event;
 import com.serliunx.eventbus.core.pool.CallerDirectRunPolicy;
 import com.serliunx.eventbus.core.pool.EventDispatcherThreadFactory;
-import lombok.Getter;
 
 import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
@@ -17,7 +16,6 @@ import java.util.concurrent.TimeUnit;
  * @author SerLiunx
  * @since 1.0
  */
-@Getter
 public class AsyncDispatcher implements Dispatcher{
 
     private final ThreadPoolExecutor poolExecutor;
@@ -53,5 +51,9 @@ public class AsyncDispatcher implements Dispatcher{
     @Override
     public void dispatchEvent(EventRegistry eventRegistry, Event event) {
 
+    }
+
+    public ThreadPoolExecutor getPoolExecutor() {
+        return poolExecutor;
     }
 }

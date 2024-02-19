@@ -25,12 +25,12 @@ public class AsyncEventBus extends AbstractEventBus{
     }
 
     @Override
-    protected boolean filter(Method listenerMethod, Subscribe subscribeAnnotation) {
-        return subscribeAnnotation.async();
+    public void publish(Object event) {
+        asyncDispatcher.dispatch(super.eventRegistry, event);
     }
 
     @Override
-    public void publish(Object event) {
-        asyncDispatcher.dispatch(super.eventRegistry, event);
+    protected boolean filter(Method listenerMethod, Subscribe subscribeAnnotation) {
+        return subscribeAnnotation.async();
     }
 }

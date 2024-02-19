@@ -45,14 +45,6 @@ public class WeightedDispatcher implements Dispatcher, Weighted {
         dispatcher.dispatchEvent(eventRegistry, event);
     }
 
-    private boolean validateWeight(int weight){
-        return weight >= MIN_WEIGHT;
-    }
-
-    public Dispatcher getDispatcher() {
-        return dispatcher;
-    }
-
     @Override
     public int getWeight() {
         return weight;
@@ -61,5 +53,13 @@ public class WeightedDispatcher implements Dispatcher, Weighted {
     @Override
     public void setWeight(int weight) {
         this.weight = weight;
+    }
+
+    public Dispatcher getDispatcher() {
+        return dispatcher;
+    }
+
+    private boolean validateWeight(int weight){
+        return weight >= MIN_WEIGHT;
     }
 }

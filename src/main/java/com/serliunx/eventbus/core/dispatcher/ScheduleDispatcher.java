@@ -12,7 +12,7 @@ import com.serliunx.eventbus.core.event.Event;
  */
 public class ScheduleDispatcher implements Dispatcher{
 
-    //
+    //TODO 完善功能
 
     @Override
     public void dispatch(EventRegistry eventRegistry, Object event) {

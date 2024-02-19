@@ -4,6 +4,7 @@ import com.serliunx.eventbus.annotation.Subscribe;
 import com.serliunx.eventbus.core.dispatcher.Dispatcher;
 import com.serliunx.eventbus.core.dispatcher.WeightedDispatcher;
 import com.serliunx.eventbus.core.event.Event;
+
 import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Random;
@@ -72,7 +73,7 @@ public class RandomEventBus extends AbstractEventBus{
         }
 
         Random random = new Random();
-        int result = random.nextInt(totalWeight) + 1;
+        int result = random.nextInt(totalWeight);
 
         for (WeightedDispatcher dispatcher : dispatchers) {
             result -= dispatcher.getWeight();
@@ -80,7 +81,6 @@ public class RandomEventBus extends AbstractEventBus{
                 return dispatcher;
             }
         }
-
         return dispatchers.get(dispatchers.size() - 1);
     }
 }

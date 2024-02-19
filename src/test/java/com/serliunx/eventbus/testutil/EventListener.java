@@ -12,11 +12,11 @@ public class EventListener implements Listener {
 
     @Subscribe(async = true)
     public void handleFileEvent(FileEvent fileEvent){
-
+        System.out.println(Thread.currentThread().getName() + " >>> " + fileEvent);
     }
 
     @Subscribe(async = true)
-    public void handleUserEvent(UserEvent userEvent){
-        System.out.println(Thread.currentThread().getName() + ">>> " + userEvent);
+    public void handleUserEvent(FileEvent fileEvent){
+        System.out.println(Thread.currentThread().getName() + " (2) >>> " + fileEvent);
     }
 }

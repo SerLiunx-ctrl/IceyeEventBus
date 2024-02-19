@@ -20,9 +20,9 @@ public class EventRegistry {
         MethodHolder methodHolder = new MethodHolder(method, listener);
 
         if(methods == null || methods.isEmpty()){
-            ArrayList<MethodHolder> arrayList = new ArrayList<>();
-            arrayList.add(methodHolder);
-            subscribers.put(eventClass, arrayList);
+            ArrayList<MethodHolder> methodHolders = new ArrayList<>();
+            methodHolders.add(methodHolder);
+            subscribers.put(eventClass, methodHolders);
             return;
         }
         methods.add(methodHolder);

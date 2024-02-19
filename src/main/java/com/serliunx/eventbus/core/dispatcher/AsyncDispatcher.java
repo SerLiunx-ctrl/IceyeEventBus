@@ -28,7 +28,7 @@ public class AsyncDispatcher implements Dispatcher{
 
     public AsyncDispatcher() {
         this(new ThreadPoolExecutor(16, 32, 60, TimeUnit.MINUTES,
-                new ArrayBlockingQueue<>(16), new EventDispatcherThreadFactory(), new CallerDirectRunPolicy()));
+                new ArrayBlockingQueue<>(16), new EventDispatcherThreadFactory("event-listener-%s"), new CallerDirectRunPolicy()));
     }
 
     @Override

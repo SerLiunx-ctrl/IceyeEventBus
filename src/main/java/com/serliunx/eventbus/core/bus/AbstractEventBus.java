@@ -48,16 +48,11 @@ public abstract class AbstractEventBus implements EventBus{
     }
 
     @Override
-    public void registerListeners(Listener... listeners) {
+    public void registerListener(Listener... listeners) {
         for (Listener listener : listeners) {
             registerListener(listener);
         }
     }
-
-    /**
-     * 事件注册过滤逻辑, 请根据具体的事件总线来实现
-     */
-    protected abstract boolean filter(Method listenerMethod, Subscribe subscribeAnnotation);
 
     @Override
     public void publish(Object event) {
@@ -68,4 +63,9 @@ public abstract class AbstractEventBus implements EventBus{
         }
         dispatcher.dispatch(eventRegistry, event);
     }
+
+    /**
+     * 事件注册过滤逻辑, 请根据具体的事件总线来实现
+     */
+    protected abstract boolean filter(Method listenerMethod, Subscribe subscribeAnnotation);
 }

@@ -10,11 +10,15 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class EventDispatcherThreadFactory implements ThreadFactory {
 
-    private static final String THEAD_NAME_PATTERN = "event-listener-%s";
+    private final String threadNamePattern;
     private final AtomicInteger count = new AtomicInteger(1);
+
+    public EventDispatcherThreadFactory(String threadNamePattern) {
+        this.threadNamePattern = threadNamePattern;
+    }
 
     @Override
     public Thread newThread(Runnable r) {
-        return new Thread(r, String.format(THEAD_NAME_PATTERN, count.getAndIncrement()));
+        return new Thread(r, String.format(threadNamePattern, count.getAndIncrement()));
     }
 }

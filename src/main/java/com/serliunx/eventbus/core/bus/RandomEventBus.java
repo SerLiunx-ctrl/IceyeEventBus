@@ -3,7 +3,6 @@ package com.serliunx.eventbus.core.bus;
 import com.serliunx.eventbus.annotation.Subscribe;
 import com.serliunx.eventbus.core.dispatcher.Dispatcher;
 import com.serliunx.eventbus.core.dispatcher.WeightedDispatcher;
-import com.serliunx.eventbus.core.event.Event;
 
 import java.lang.reflect.Method;
 import java.util.List;
@@ -45,12 +44,7 @@ public class RandomEventBus extends AbstractEventBus{
     public void publish(Object event) {
         Dispatcher dispatcher = apportionDispatcher();
         if(dispatcher == null) return;
-        if(event instanceof Event){
-            Event e = (Event) event;
-            dispatcher.dispatchEvent(eventRegistry, e);
-        }else {
-            dispatcher.dispatch(eventRegistry, event);
-        }
+        dispatcher.autoDispatch(eventRegistry, event);
     }
 
     /**

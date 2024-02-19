@@ -2,7 +2,6 @@ package com.serliunx.eventbus.core.bus;
 
 import com.serliunx.eventbus.annotation.Subscribe;
 import com.serliunx.eventbus.core.dispatcher.AsyncDispatcher;
-import com.serliunx.eventbus.core.dispatcher.Dispatcher;
 
 import java.lang.reflect.Method;
 
@@ -14,9 +13,9 @@ import java.lang.reflect.Method;
  */
 public class AsyncEventBus extends AbstractEventBus{
 
-    private final Dispatcher asyncDispatcher;
+    private final AsyncDispatcher asyncDispatcher;
 
-    public AsyncEventBus(Dispatcher asyncDispatcher) {
+    public AsyncEventBus(AsyncDispatcher asyncDispatcher) {
         this.asyncDispatcher = asyncDispatcher;
     }
 
@@ -26,7 +25,7 @@ public class AsyncEventBus extends AbstractEventBus{
 
     @Override
     public void publish(Object event) {
-        asyncDispatcher.dispatch(super.eventRegistry, event);
+        asyncDispatcher.autoDispatch(eventRegistry, event);
     }
 
     @Override

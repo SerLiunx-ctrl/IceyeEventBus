@@ -50,7 +50,9 @@ public class AsyncDispatcher implements Dispatcher{
 
     @Override
     public void dispatchEvent(EventRegistry eventRegistry, Event event) {
-        //TODO
+        if(!validateContext(eventRegistry, event)){
+            return;
+        }
     }
 
     public ThreadPoolExecutor getPoolExecutor() {

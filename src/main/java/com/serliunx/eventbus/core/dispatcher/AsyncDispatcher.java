@@ -2,7 +2,6 @@ package com.serliunx.eventbus.core.dispatcher;
 
 import com.serliunx.eventbus.core.EventRegistry;
 import com.serliunx.eventbus.core.MethodHolder;
-import com.serliunx.eventbus.core.event.Event;
 import com.serliunx.eventbus.core.pool.CallerDirectRunPolicy;
 import com.serliunx.eventbus.core.pool.EventDispatcherThreadFactory;
 
@@ -46,13 +45,6 @@ public class AsyncDispatcher implements Dispatcher{
                 }
             });
         });
-    }
-
-    @Override
-    public void dispatchEvent(EventRegistry eventRegistry, Event event) {
-        if(!validateContext(eventRegistry, event)){
-            return;
-        }
     }
 
     public ThreadPoolExecutor getPoolExecutor() {

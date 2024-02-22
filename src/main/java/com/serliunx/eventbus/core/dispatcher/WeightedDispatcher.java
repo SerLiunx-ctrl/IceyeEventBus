@@ -2,7 +2,6 @@ package com.serliunx.eventbus.core.dispatcher;
 
 import com.serliunx.eventbus.core.EventRegistry;
 import com.serliunx.eventbus.core.Weighted;
-import com.serliunx.eventbus.core.event.Event;
 
 /**
  * 包装了一个调度器的随机调度器(?
@@ -32,17 +31,12 @@ public class WeightedDispatcher implements Dispatcher, Weighted {
     }
 
     public WeightedDispatcher(Dispatcher dispatcher) {
-        this(dispatcher, 0);
+        this(dispatcher, 1);
     }
 
     @Override
     public void dispatch(EventRegistry eventRegistry, Object event) {
         dispatcher.dispatch(eventRegistry, event);
-    }
-
-    @Override
-    public void dispatchEvent(EventRegistry eventRegistry, Event event) {
-        dispatcher.dispatchEvent(eventRegistry, event);
     }
 
     @Override

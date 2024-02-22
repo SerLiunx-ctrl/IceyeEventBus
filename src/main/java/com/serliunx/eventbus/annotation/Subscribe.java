@@ -2,6 +2,7 @@ package com.serliunx.eventbus.annotation;
 
 import com.serliunx.eventbus.core.dispatcher.AsyncDispatcher;
 import com.serliunx.eventbus.core.dispatcher.SyncDispatcher;
+
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

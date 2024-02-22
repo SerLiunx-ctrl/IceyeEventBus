@@ -41,10 +41,10 @@ public class RandomEventBus extends AbstractEventBus{
     }
 
     @Override
-    public void publish(Object event) {
+    protected void publishObject(Object event) {
         Dispatcher dispatcher = apportionDispatcher();
         if(dispatcher == null) return;
-        dispatcher.autoDispatch(eventRegistry, event);
+        dispatcher.dispatch(eventRegistry, event);
     }
 
     /**
@@ -60,13 +60,22 @@ public class RandomEventBus extends AbstractEventBus{
      * @return 调度器
      */
     private Dispatcher apportionDispatcher(){
+        if(dispatchers.isEmpty()){
+            return null;
+        }
         int totalWeight = 0;
 
         for (WeightedDispatcher dispatcher : dispatchers) {
             totalWeight += dispatcher.getWeight();
         }
 
-        Random random = new Random();
+        //如果全部调度器的权重都相等
+        if(totalWeight / dispatchers.size() == dispatchers.get(0).getWeight()){
+            int index = new Random(System.currentTimeMillis()).nextInt(dispatchers.size());
+            return dispatchers.get(index);
+        }
+
+        Random random = new Random(System.currentTimeMillis());
         int result = random.nextInt(totalWeight);
 
         for (WeightedDispatcher dispatcher : dispatchers) {

@@ -5,6 +5,7 @@ import com.serliunx.eventbus.core.EventRegistry;
 import com.serliunx.eventbus.core.Listener;
 import com.serliunx.eventbus.core.dispatcher.Dispatcher;
 import com.serliunx.eventbus.core.dispatcher.SyncDispatcher;
+import com.serliunx.eventbus.core.event.Event;
 import com.serliunx.eventbus.exception.TooManyParametersException;
 import com.serliunx.eventbus.util.ReflectionUtils;
 
@@ -23,7 +24,7 @@ public abstract class AbstractEventBus implements EventBus{
     private final Dispatcher dispatcher = new SyncDispatcher();
 
     @Override
-    public void registerListener(Listener listener) {
+    public final void registerListener(Listener listener) {
         Class<? extends Listener> clazz = listener.getClass();
         List<Method> methods = ReflectionUtils.getMethodsWithAnnotation(clazz, Subscribe.class);
 
@@ -54,8 +55,29 @@ public abstract class AbstractEventBus implements EventBus{
     }
 
     @Override
-    public void publish(Object event) {
-        dispatcher.autoDispatch(eventRegistry, event);
+    public final void publish(Object event) {
+        if(event instanceof Event){
+            Event e = (Event) event;
+            publishEvent(e);
+            return;
+        }
+        publishObject(event);
+    }
+
+    /**
+     * 发布事件 - 普通事件
+     * @param event 事件对象
+     */
+    protected void publishObject(Object event){
+        dispatcher.dispatch(eventRegistry, event);
+    }
+
+    /**
+     * 发布事件 - {@link Event}事件
+     * @param event 事件对象
+     */
+    protected void publishEvent(Event event){
+        dispatcher.dispatch(eventRegistry, event);
     }
 
     /**

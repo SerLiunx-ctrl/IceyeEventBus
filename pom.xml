@@ -5,8 +5,16 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.serliunx</groupId>
-    <artifactId>iceye-event-bus</artifactId>
-    <version>1.0.1</version>
+    <artifactId>iceye-eventbus</artifactId>
+    <version>1.0.0-snapshot</version>
+
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>iceye-eventbus-spring</module>
+        <module>iceye-eventbus-core</module>
+        <module>iceye-eventbus-springboot-starter</module>
+    </modules>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>

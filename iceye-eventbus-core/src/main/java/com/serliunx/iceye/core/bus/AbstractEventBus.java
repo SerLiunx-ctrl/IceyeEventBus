@@ -7,7 +7,9 @@ import com.serliunx.iceye.core.dispatcher.Dispatcher;
 import com.serliunx.iceye.core.dispatcher.SyncDispatcher;
 import com.serliunx.iceye.core.event.Event;
 import com.serliunx.iceye.core.exception.TooManyParametersException;
-import com.serliunx.iceye.core.util.ReflectionUtils;
+import com.serliunx.iceye.core.util.AnnotationMethodFilter;
+import com.serliunx.iceye.core.util.CandidateMethodScanner;
+import com.serliunx.iceye.core.util.DefaultCandidateMethodScanner;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
@@ -23,11 +25,17 @@ public abstract class AbstractEventBus implements EventBus{
 
     protected final EventRegistry eventRegistry = new EventRegistry();
     private final Dispatcher dispatcher = new SyncDispatcher();
+    protected CandidateMethodScanner candidateMethodScanner;
+
+    public AbstractEventBus() {
+        this.candidateMethodScanner =
+                new DefaultCandidateMethodScanner(new AnnotationMethodFilter(Subscribe.class), true);
+    }
 
     @Override
     public final void registerListener(Listener listener) {
         Class<? extends Listener> clazz = listener.getClass();
-        List<Method> methods = ReflectionUtils.getMethodsWithAnnotation(clazz, Subscribe.class);
+        List<Method> methods = candidateMethodScanner.getCandidateMethods(clazz);
 
         methods.stream()
                 .filter(m -> m.getParameters().length > 0)
@@ -36,7 +44,6 @@ public abstract class AbstractEventBus implements EventBus{
                     if(parameters.length > 1){
                         String message = String.format("too many parameters, expect 1 but found %s, in %s (%s)",
                                 parameters.length, m.getName(), clazz.getName());
-
                         throw new TooManyParametersException(message);
                     }
                     Subscribe annotation = m.getAnnotation(Subscribe.class);
@@ -70,6 +77,11 @@ public abstract class AbstractEventBus implements EventBus{
             return;
         }
         publishObject(event);
+    }
+
+    @Override
+    public final void setCandidateMethodScanner(CandidateMethodScanner scanner) {
+        this.candidateMethodScanner = scanner;
     }
 
     /**

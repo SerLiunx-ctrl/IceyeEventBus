@@ -2,6 +2,8 @@ package com.serliunx.iceye.core.bus;
 
 import com.serliunx.iceye.core.Listener;
 
+import java.util.Collection;
+
 /**
  * 事件总线
  * @author SerLiunx
@@ -19,7 +21,13 @@ public interface EventBus {
      * 批量注册监听器
      * @param listeners 监听器
      */
-    void registerListener(Listener...listeners);
+    void registerListeners(Listener...listeners);
+
+    /**
+     * 批量注册监听器
+     * @param listeners 监听器
+     */
+    void registerListeners(Collection<? extends Listener> listeners);
 
     /**
      * 发布事件

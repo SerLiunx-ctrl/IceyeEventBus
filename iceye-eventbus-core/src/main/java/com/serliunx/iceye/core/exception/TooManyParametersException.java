@@ -1,4 +1,4 @@
-package com.serliunx.iceye.exception;
+package com.serliunx.iceye.core.exception;
 
 /**
  * 异常: 参数过多

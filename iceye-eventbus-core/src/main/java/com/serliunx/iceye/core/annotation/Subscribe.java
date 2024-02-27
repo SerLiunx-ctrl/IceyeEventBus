@@ -1,4 +1,4 @@
-package com.serliunx.iceye.annotation;
+package com.serliunx.iceye.core.annotation;
 
 import com.serliunx.iceye.core.dispatcher.AsyncDispatcher;
 import com.serliunx.iceye.core.dispatcher.SyncDispatcher;

@@ -1,4 +1,4 @@
-package com.serliunx.iceye.util;
+package com.serliunx.iceye.core.util;
 
 /**
  * @author SerLiunx

@@ -1,6 +1,6 @@
 package com.serliunx.iceye.core.bus;
 
-import com.serliunx.iceye.annotation.Subscribe;
+import com.serliunx.iceye.core.annotation.Subscribe;
 
 import java.lang.reflect.Method;
 

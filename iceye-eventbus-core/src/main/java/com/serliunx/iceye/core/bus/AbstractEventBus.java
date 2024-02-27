@@ -1,16 +1,17 @@
 package com.serliunx.iceye.core.bus;
 
-import com.serliunx.iceye.annotation.Subscribe;
 import com.serliunx.iceye.core.EventRegistry;
 import com.serliunx.iceye.core.Listener;
+import com.serliunx.iceye.core.annotation.Subscribe;
 import com.serliunx.iceye.core.dispatcher.Dispatcher;
 import com.serliunx.iceye.core.dispatcher.SyncDispatcher;
 import com.serliunx.iceye.core.event.Event;
-import com.serliunx.iceye.exception.TooManyParametersException;
-import com.serliunx.iceye.util.ReflectionUtils;
+import com.serliunx.iceye.core.exception.TooManyParametersException;
+import com.serliunx.iceye.core.util.ReflectionUtils;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -48,7 +49,14 @@ public abstract class AbstractEventBus implements EventBus{
     }
 
     @Override
-    public void registerListener(Listener... listeners) {
+    public void registerListeners(Listener... listeners) {
+        for (Listener listener : listeners) {
+            registerListener(listener);
+        }
+    }
+
+    @Override
+    public void registerListeners(Collection<? extends Listener> listeners) {
         for (Listener listener : listeners) {
             registerListener(listener);
         }

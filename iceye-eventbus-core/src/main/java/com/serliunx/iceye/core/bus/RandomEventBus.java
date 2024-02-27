@@ -1,10 +1,12 @@
 package com.serliunx.iceye.core.bus;
 
-import com.serliunx.iceye.annotation.Subscribe;
+import com.serliunx.iceye.core.annotation.Subscribe;
+import com.serliunx.iceye.core.dispatcher.DefaultWeightedDispatcher;
 import com.serliunx.iceye.core.dispatcher.Dispatcher;
-import com.serliunx.iceye.core.dispatcher.WeightedDispatcher;
 
 import java.lang.reflect.Method;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -20,7 +22,18 @@ public class RandomEventBus extends AbstractEventBus{
     /**
      * 调度器集合
      */
-    private final List<WeightedDispatcher> dispatchers = new CopyOnWriteArrayList<>();
+    private final List<DefaultWeightedDispatcher> dispatchers = new CopyOnWriteArrayList<>();
+
+    public RandomEventBus(DefaultWeightedDispatcher...dispatchers) {
+        this.dispatchers.addAll(Arrays.asList(dispatchers));
+    }
+
+    public RandomEventBus(Collection<? extends DefaultWeightedDispatcher> dispatchers) {
+        this.dispatchers.addAll(dispatchers);
+    }
+
+    public RandomEventBus() {
+    }
 
     /**
      * 向集合中添加新的调度器
@@ -28,8 +41,8 @@ public class RandomEventBus extends AbstractEventBus{
      */
     @SuppressWarnings("all")
     public boolean addDispatcher(Dispatcher dispatcher, int weight){
-        WeightedDispatcher weightedDispatcher = new WeightedDispatcher(dispatcher, weight);
-        return dispatchers.add(weightedDispatcher);
+        DefaultWeightedDispatcher defaultWeightedDispatcher = new DefaultWeightedDispatcher(dispatcher, weight);
+        return dispatchers.add(defaultWeightedDispatcher);
     }
 
     /**
@@ -48,14 +61,6 @@ public class RandomEventBus extends AbstractEventBus{
     }
 
     /**
-     * 获取所有调度器
-     * @return 调度器
-     */
-    public List<WeightedDispatcher> getDispatchers() {
-        return dispatchers;
-    }
-
-    /**
      * 根据权重分配调度器
      * @return 调度器
      */
@@ -65,7 +70,7 @@ public class RandomEventBus extends AbstractEventBus{
         }
         int totalWeight = 0;
 
-        for (WeightedDispatcher dispatcher : dispatchers) {
+        for (DefaultWeightedDispatcher dispatcher : dispatchers) {
             totalWeight += dispatcher.getWeight();
         }
 
@@ -78,7 +83,7 @@ public class RandomEventBus extends AbstractEventBus{
         Random random = new Random(System.currentTimeMillis());
         int result = random.nextInt(totalWeight);
 
-        for (WeightedDispatcher dispatcher : dispatchers) {
+        for (DefaultWeightedDispatcher dispatcher : dispatchers) {
             result -= dispatcher.getWeight();
             if (result <= 0) {
                 return dispatcher;

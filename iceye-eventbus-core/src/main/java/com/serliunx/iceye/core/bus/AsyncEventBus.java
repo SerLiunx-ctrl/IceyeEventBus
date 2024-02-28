@@ -1,6 +1,6 @@
 package com.serliunx.iceye.core.bus;
 
-import com.serliunx.iceye.annotation.Subscribe;
+import com.serliunx.iceye.core.annotation.Subscribe;
 import com.serliunx.iceye.core.dispatcher.AsyncDispatcher;
 import com.serliunx.iceye.core.event.Event;
 

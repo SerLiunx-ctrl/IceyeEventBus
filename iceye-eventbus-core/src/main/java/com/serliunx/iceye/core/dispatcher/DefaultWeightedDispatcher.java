@@ -1,27 +1,22 @@
 package com.serliunx.iceye.core.dispatcher;
 
 import com.serliunx.iceye.core.EventRegistry;
-import com.serliunx.iceye.core.Weighted;
 
 /**
  * 包装了一个调度器的随机调度器(?
  * @author SerLiunx
  * @since 1.0
  */
-public class WeightedDispatcher implements Dispatcher, Weighted {
+public class DefaultWeightedDispatcher implements WeightDispatcher {
 
-    /**
-     * 最大权重 Integer.MAX_VALUE
-     */
-    public static final int MAX_WEIGHT = Integer.MAX_VALUE;
-    /**
-     * 最小权重值: 1
-     */
-    public static final int MIN_WEIGHT = 1;
     private final Dispatcher dispatcher;
     private int weight;
 
-    public WeightedDispatcher(Dispatcher dispatcher, int weight) {
+    /**
+     * @param dispatcher 调度器
+     * @param weight 权重, 必须大于0, 如不设置则默认为 1
+     */
+    public DefaultWeightedDispatcher(Dispatcher dispatcher, int weight) {
         if(!validateWeight(weight)){
             throw new IllegalArgumentException(String.format("The weight is only allowed to be set from %s to %s but found %s",
                     MIN_WEIGHT, MAX_WEIGHT, weight));
@@ -30,7 +25,7 @@ public class WeightedDispatcher implements Dispatcher, Weighted {
         this.weight = weight;
     }
 
-    public WeightedDispatcher(Dispatcher dispatcher) {
+    public DefaultWeightedDispatcher(Dispatcher dispatcher) {
         this(dispatcher, 1);
     }
 
@@ -49,6 +44,7 @@ public class WeightedDispatcher implements Dispatcher, Weighted {
         this.weight = weight;
     }
 
+    @Override
     public Dispatcher getDispatcher() {
         return dispatcher;
     }

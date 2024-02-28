@@ -1,6 +1,9 @@
 package com.serliunx.iceye.core.bus;
 
 import com.serliunx.iceye.core.Listener;
+import com.serliunx.iceye.core.util.CandidateMethodScanner;
+
+import java.util.Collection;
 
 /**
  * 事件总线
@@ -19,11 +22,23 @@ public interface EventBus {
      * 批量注册监听器
      * @param listeners 监听器
      */
-    void registerListener(Listener...listeners);
+    void registerListeners(Listener...listeners);
+
+    /**
+     * 批量注册监听器
+     * @param listeners 监听器
+     */
+    void registerListeners(Collection<? extends Listener> listeners);
 
     /**
      * 发布事件
      * @param event 事件
      */
     void publish(Object event);
+
+    /**
+     * 设置方法扫描器
+     * @param scanner 方法扫描器
+     */
+    void setCandidateMethodScanner(CandidateMethodScanner scanner);
 }

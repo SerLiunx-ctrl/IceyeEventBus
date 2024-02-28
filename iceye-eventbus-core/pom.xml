@@ -9,6 +9,11 @@
         <version>1.0.0-snapshot</version>
     </parent>
 
+    <version>1.0.1</version>
     <packaging>jar</packaging>
     <artifactId>iceye-eventbus-core</artifactId>
+
+    <dependencies>
+
+    </dependencies>
 </project>

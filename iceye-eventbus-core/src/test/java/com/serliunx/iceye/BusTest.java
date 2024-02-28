@@ -1,6 +1,7 @@
 package com.serliunx.iceye;
 
-import com.serliunx.iceye.core.bus.AsyncEventBus;
+import com.serliunx.iceye.core.bus.EventBus;
+import com.serliunx.iceye.core.bus.SyncEventBus;
 import com.serliunx.iceye.testutil.EventListener;
 import com.serliunx.iceye.testutil.FileEvent;
 import org.junit.jupiter.api.Test;
@@ -13,8 +14,9 @@ public class BusTest {
 
     @Test
     public void test(){
-        AsyncEventBus asyncEventBus = new AsyncEventBus();
-        asyncEventBus.registerListener(new EventListener());
-        asyncEventBus.publish(new FileEvent());
+        EventBus eventBus = new SyncEventBus();
+
+        eventBus.registerListener(new EventListener());
+        eventBus.publish(new FileEvent());
     }
 }

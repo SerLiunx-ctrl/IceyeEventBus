@@ -32,6 +32,11 @@ public class DefaultCandidateMethodScanner implements CandidateMethodScanner{
         Method[] methods = isPublic ? clazz.getMethods() : clazz.getDeclaredMethods();
         return Arrays.stream(methods)
                 .filter(this::filter)
+                .peek(m -> {
+                    if(isPublic){
+                        m.setAccessible(true);
+                    }
+                })
                 .collect(Collectors.toList());
     }
 

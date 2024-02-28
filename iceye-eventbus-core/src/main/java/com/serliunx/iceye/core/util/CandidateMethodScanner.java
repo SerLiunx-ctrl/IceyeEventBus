@@ -8,7 +8,6 @@ import java.util.List;
  * @author SerLiunx
  * @since 1.0
  */
-@FunctionalInterface
 public interface CandidateMethodScanner {
 
     /**
@@ -16,4 +15,10 @@ public interface CandidateMethodScanner {
      * @return 候选方法
      */
     List<Method> getCandidateMethods(Class<?> clazz);
+
+    /**
+     * 添加一个方法过滤器
+     * @param methodFilter 方法过滤器
+     */
+    void addMethodFilter(MethodFilter methodFilter);
 }

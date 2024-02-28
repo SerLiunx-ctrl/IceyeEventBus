@@ -37,17 +37,15 @@ public abstract class AbstractEventBus implements EventBus{
     public final void registerListener(Listener listener) {
         Class<? extends Listener> clazz = listener.getClass();
         List<Method> methods = candidateMethodScanner.getCandidateMethods(clazz);
-        methods.stream()
-                .filter(m -> m.getParameters().length > 0)
-                .forEach(m -> {
-                    Parameter[] parameters = m.getParameters(); //默认只会有一个参数
-                    Subscribe annotation = m.getAnnotation(Subscribe.class);
-                    Parameter parameter = parameters[0];
-                    Class<?> eventClass = parameter.getType();
-                    if(filter(m, annotation)){
-                        eventRegistry.add(eventClass, m, listener);
-                    }
-                });
+        methods.forEach(m -> {
+            Parameter[] parameters = m.getParameters(); //默认只会有一个参数
+            Subscribe annotation = m.getAnnotation(Subscribe.class);
+            Parameter parameter = parameters[0];
+            Class<?> eventClass = parameter.getType();
+            if(filter(m, annotation)){
+                eventRegistry.add(eventClass, m, listener);
+            }
+        });
     }
 
     @Override

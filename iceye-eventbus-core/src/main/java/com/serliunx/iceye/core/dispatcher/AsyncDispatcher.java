@@ -36,15 +36,13 @@ public class AsyncDispatcher implements Dispatcher{
             return;
         }
         List<MethodHolder> asyncListeners = eventRegistry.getSubscribers().get(event.getClass());
-        asyncListeners.forEach(m -> {
-            poolExecutor.submit(() -> {
-                try {
-                    m.getMethod().invoke(m.getListener(), event);
-                } catch (Exception e){
-                    throw new RuntimeException(e);
-                }
-            });
-        });
+        asyncListeners.forEach(m -> poolExecutor.submit(() -> {
+            try {
+                m.getMethod().invoke(m.getListener(), event);
+            } catch (Exception e){
+                throw new RuntimeException(e);
+            }
+        }));
     }
 
     public ThreadPoolExecutor getPoolExecutor() {

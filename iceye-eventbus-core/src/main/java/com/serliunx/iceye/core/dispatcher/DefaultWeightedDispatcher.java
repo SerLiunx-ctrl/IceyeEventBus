@@ -29,6 +29,15 @@ public class DefaultWeightedDispatcher implements WeightDispatcher {
         this(dispatcher, 1);
     }
 
+    /**
+     * 快速构建一个带权重的调度器
+     * @param dispatcher 调度器
+     * @param weight 权重, 必须大于0, 如不设置则默认为 1
+     */
+    public static DefaultWeightedDispatcher build(Dispatcher dispatcher, int weight){
+        return new DefaultWeightedDispatcher(dispatcher, weight);
+    }
+
     @Override
     public void dispatch(EventRegistry eventRegistry, Object event) {
         dispatcher.dispatch(eventRegistry, event);

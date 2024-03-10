@@ -14,7 +14,7 @@ public class SyncEventBus extends AbstractEventBus{
 
     /**
      * 定义扫描事件时是否忽略异步事件
-     * <li> 默认不忽略, 即将异步事件通过同步的方式进行响应
+     * <li> 默认不忽略, 即将异步事件通过同步的方式调度
      */
     private final boolean ignoreAsync;
 

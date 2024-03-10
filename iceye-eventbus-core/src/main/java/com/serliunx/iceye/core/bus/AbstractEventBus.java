@@ -34,7 +34,7 @@ public abstract class AbstractEventBus implements EventBus{
     }
 
     @Override
-    public final void registerListener(Listener listener) {
+    public void registerListener(Listener listener) {
         Class<? extends Listener> clazz = listener.getClass();
         List<Method> methods = candidateMethodScanner.getCandidateMethods(clazz);
         methods.forEach(m -> {

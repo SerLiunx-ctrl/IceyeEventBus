@@ -3,7 +3,7 @@ package com.serliunx.iceye.core;
 import java.lang.reflect.Method;
 
 /**
- * 方法 - 对象
+ * 方法 - 监听器对象
  * @author SerLiunx
  * @since 1.0
  */

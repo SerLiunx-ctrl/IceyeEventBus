@@ -1,10 +1,10 @@
 package com.serliunx.iceye.core;
 
 import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * 事件 - 订阅者
@@ -20,7 +20,7 @@ public class EventRegistry {
         MethodHolder methodHolder = new MethodHolder(method, listener);
 
         if(methods == null || methods.isEmpty()){
-            ArrayList<MethodHolder> methodHolders = new ArrayList<>();
+            List<MethodHolder> methodHolders = new CopyOnWriteArrayList<>();
             methodHolders.add(methodHolder);
             subscribers.put(eventClass, methodHolders);
             return;
@@ -30,5 +30,10 @@ public class EventRegistry {
 
     public Map<Class<?>, List<MethodHolder>> getSubscribers() {
         return subscribers;
+    }
+
+    @Override
+    public String toString() {
+        return subscribers.toString();
     }
 }

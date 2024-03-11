@@ -68,6 +68,7 @@ public final class IntegratedEventBus implements EventBus{
     @Override
     public void publish(Object event) {
         Class<?> clazz = event.getClass();
+        //多对多调度模式
         if(asyncEventRegistry.getSubscribers().containsKey(clazz)){
             asyncDispatcher.dispatch(asyncEventRegistry, event);
         }

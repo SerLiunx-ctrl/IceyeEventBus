@@ -67,11 +67,16 @@ public abstract class AbstractTrafficLimiter implements TrafficLimiter{
         return concurrentTaskCount;
     }
 
+    @Override
+    public void shutdown() {
+        this.pool.shutdown();
+    }
+
     protected void beforeRun(Worker currentWorker){}
 
     protected void afterRun(Worker currentWorker){}
 
-    protected void enterSleep(){}
+    protected void beforeSleep(){}
 
     protected void afterSleep(){}
 
@@ -114,7 +119,7 @@ public abstract class AbstractTrafficLimiter implements TrafficLimiter{
                         try {
                             if((timeDifference = (timeCosted - getInterval())) < 0){
                                 //进入睡眠钩子函数
-                                enterSleep();
+                                beforeSleep();
                                 TimeUnit.MILLISECONDS.sleep(-timeDifference);
                                 //结束睡眠钩子函数
                                 afterSleep();
@@ -150,11 +155,9 @@ public abstract class AbstractTrafficLimiter implements TrafficLimiter{
         }
 
         public void afterThrows(Throwable throwable){
-            try {
-                if(afterThrows != null){
-                    afterThrows.accept(throwable);
-                }
-            }catch (Exception ignored){}
+            if(afterThrows != null){
+                afterThrows.accept(throwable);
+            }
         }
     }
 }

@@ -11,7 +11,7 @@ public class DispatcherTrafficLimiter extends AbstractTrafficLimiter{
     }
 
     @Override
-    protected void enterSleep() {
+    protected void beforeSleep() {
         System.out.println("线程开始睡眠");
     }
 
